@@ -7,6 +7,7 @@
     'depends': [
     ],
     "data": [
+        'views/res_partner.xml',
     ],
     'qweb': [],
     'images': [],

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_res_partner_tree" model="ir.ui.view">
+        <field name="name">res.partner.tree</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="vat"/>
+                <field name="codice_fiscale"/>
+                <field name="mobile"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_res_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="codice_fiscale"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_res_partner" model="ir.actions.act_window">
+        <field name="name">Res Partner</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add new partner owner
+            </p>
+        </field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('unitiva_project.view_res_partner_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('unitiva_project.view_res_partner_form')})]"/>
+    </record>
+
+    <menuitem id="menu_res_partner_root"
+              name="Clients"
+              action="unitiva_project.action_res_partner"
+              sequence="110"
+              />
+</odoo>

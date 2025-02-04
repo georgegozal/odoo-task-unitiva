@@ -36,5 +36,6 @@ class ResPartner(models.Model):
     )
 
     _sql_constraints = [
-        ('codice_fiscale_unique', 'unique(codice_fiscale)', 'The Codice Fiscale must be unique.')
+        ('codice_fiscale_unique', 'unique(codice_fiscale)', 'The Codice Fiscale must be unique.'),
+        ('vat_unique', 'unique(vat)', 'The Vat Number must be unique.')
     ]
