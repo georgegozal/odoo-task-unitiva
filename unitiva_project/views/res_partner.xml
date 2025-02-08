@@ -15,17 +15,41 @@
         </field>
     </record>
 
-    <record id="view_res_partner_form" model="ir.ui.view">
-        <field name="name">res.partner.form</field>
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_type']" position="before">
+                <field name="customer_id" readonly="1"/>
+            </xpath>
             <xpath expr="//field[@name='vat']" position="after">
-                <field name="codice_fiscale"/>
+                <field name="codice_fiscale" string="Codice Fiscale"/>
+                <field name="birth_date"/>
+                <field name="birth_place"/>
+                <field name="document_type"/>
+                <field name="document_number"/>
+                <field name="document_issue_date"/>
+                <field name="document_expiry_date"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <group string="Additional Information">
+                    <field name="internal_contact"/>
+                    <field name="legal_representative"/>
+                    <field name="approved" readonly="1"/>
+                    <button string="Approve"
+                            type="object"
+                            name="action_approve"
+                            class="btn-primary"/>
+                    <button string="Reset"
+                            type="object"
+                            name="action_reset_to_be_approved"
+                            class="btn-primary"
+                            confirm="Are you sure you want to reset this record to 'To Be Approved' state?"/>
+                </group>
             </xpath>
         </field>
     </record>
-
     <record id="action_res_partner" model="ir.actions.act_window">
         <field name="name">Res Partner</field>
         <field name="res_model">res.partner</field>
@@ -39,7 +63,7 @@
         </field>
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'tree', 'view_id': ref('unitiva_project.view_res_partner_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('unitiva_project.view_res_partner_form')})]"/>
+            (0, 0, {'view_mode': 'form', 'view_id': ref('unitiva_project.view_res_partner_form_inherit')})]"/>
     </record>
 
     <menuitem id="menu_res_partner_root"
